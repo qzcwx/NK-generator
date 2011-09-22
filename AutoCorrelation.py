@@ -7,8 +7,8 @@ def autoCorr(s, w):
     sum1 = 0
     sum2 = 0
     for i in [j for j in range(n) if j != 0]:
-        sum1 = sum1 + lamd(i, n)**s * w[i]**2 
-        sum2 = sum2 + w[i]**2 
+        sum1 = sum1 + math.pow(lamd(i, n),s) * math.pow(w[i], 2)
+        sum2 = sum2 + math.pow(w[i], 2)
     return sum1/sum2
 
 def lamd(i, n):

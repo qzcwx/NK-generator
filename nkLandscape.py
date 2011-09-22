@@ -4,6 +4,7 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 class NKLandscape:
     """ NK-landscape class """
@@ -29,7 +30,7 @@ class NKLandscape:
         self.func = []
         for i in range(self.n):
             oneFunc = []
-            for j in range(pow(2,self.k+1)):
+            for j in range(int(math.pow(2,self.k+1))):
                 oneFunc.append(random.random())
             self.func.append(oneFunc)
     def getFunc(self):

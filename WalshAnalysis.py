@@ -1,7 +1,7 @@
 # Walsh Analysis Module
 def computeW(i,f):
     """ Walsh coefficient computation 
-    
+
         This function receives a tuple of bit-string and a tuple of 
         corresponding function value, return the Walsh coefficient.
     """

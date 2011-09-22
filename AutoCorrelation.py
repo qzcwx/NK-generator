@@ -12,10 +12,7 @@ def autoCorr(s, w):
     return sum1/sum2
 
 def lamd(i, n):
-    print 'i', i
     oneBit = bin(i)
-    print 'str', oneBit
     oneBit = oneBit[2:]
     numOfOne = oneBit.count('1')
-    print 'numOfOne', numOfOne
     return (1 -  2.0*numOfOne/n)

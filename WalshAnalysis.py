@@ -27,4 +27,3 @@ def bc(x,y):
 #    for i in range(len(x)):
 #        if x[i] == '1' and y[i] == '1':
 #            sum = sum + 1
-    

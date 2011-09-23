@@ -11,60 +11,72 @@ import time
 """ consider as a minimization problem """
 
 def compFit(model):
-    bitStr = []
-    fit = []
+    n = model.getN()
+    fit = np.zeros(math.pow(2,n))
+    bitStr = nk.genSeqBits(n)
     for i in range(int(math.pow(2,n))):
-       bit = bin(i)
-       bit = bit[2:]
-       if len(bit) < n:
-           bit = (n - len(bit))*'0' + bit
-       bitStr.append(bit)
-       fit.append(model.compFit(bitStr[i]))
+       fit[i] = model.compFit(bitStr[i])
     return bitStr, fit
 
 random.seed(0)
 
-n = 20
-k = 9
+#n = 15
+#k = 4
+for k in range(4,10):
+    for n in [i for i in range(21) if i >= k+1 ]:
+        print 'n', n, 'k', k
 
-print 'n', n, 'k', k
+        #start = time.time()
+        w = np.zeros(math.pow(n,2))
+        #print "t1", time.time() - start
 
-start = time.time()
-w = np.zeros(math.pow(n,2))
-print "t1", time.time() - start
+        #start = time.time()
+        model = nk.NKLandscape(n,k)
+        #print "t2", time.time() - start
 
-start = time.time()
-model = nk.NKLandscape(n,k)
-print "t2", time.time() - start
+        start = time.time()
+        w0 = model.WalCof()
+        print "t0", time.time() - start
 
-start = time.time()
-bitStr, fit = compFit(model)
-print "t3", time.time() - start
+        start = time.time()
+        w00 = model.WalCofLinear()
+        print "t00", time.time() - start
 
-start = time.time()
-w = wal.computeW(bitStr, fit)
-print "t4", time.time() - start
+        #start = time.time()
+        bitStr, fit = compFit(model)
+        #print "t3", time.time() - start
 
-start = time.time()
-autoCo = []
-for i in range(n):
-    autoCo.append(  ac.autoCorr(i, w) )
-print "t5", time.time() - start
+        #start = time.time()
+        #w = wal.computeW(bitStr, fit)
+        #print "t4", time.time() - start
 
-start = time.time()
-numOpt = lo.localOpt(bitStr, fit)
-print "t6", time.time() - start
+        #print 'w0', w0
+        #print 'w', w
+        #print 'difference', w0-w
 
-#print 'bitStr', bitStr
-#print 'fit', fit
-#print 'ave of fit', sum(fit)/len(fit)
-#print 'neigh', model.getNeigh()
-#print 'w', w
-print 'AutoCorrelation = ', autoCo
-print 'Number of Local Optimum = ', numOpt
+        start = time.time()
+        #autoCo = []
+        #for i in range(n):
+        #    autoCo.append(  ac.autoCorr(i, w0) )
+        autoCo = ac.autoCorr(1, w0)
+        print "t5", time.time() - start
 
-plt.title('Relationship between Auto-Correlation and $s$ ( n =' + str(n) + ', k =' + str(k) + ' )')
-plt.xlabel('$s$')
-plt.ylabel('$f(s)$')
-plt.plot(range(n),autoCo,'o-')
-plt.savefig('N'+str(n)+'K'+str(k)+'.eps')
+        #start = time.time()
+        #numOpt = lo.localOpt(bitStr, fit)
+        #print "t6", time.time() - start
+
+        #print 'bitStr', bitStr
+        #print 'fit', fit
+        #print 'ave of fit', sum(fit)/len(fit)
+        #print 'neigh', model.getNeigh()
+        #print 'w0', w0
+        #print 'w00', w00
+        print 'r(1) = ', autoCo
+        #print 'Num of Local Optimum = ', numOpt
+
+        #plt.title('Relationship between Auto-Correlation and $s$ ( n =' + str(n) + ', k =' + str(k) + ' )')
+        #plt.xlabel('$s$')
+        #plt.ylabel('$f(s)$')
+        #plt.plot(range(n),autoCo,'o-')
+        #plt.savefig('N'+str(n)+'K'+str(k)+'.eps')
+        print '***********************************'

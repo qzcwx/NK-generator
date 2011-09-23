@@ -41,7 +41,7 @@ def localOpt(bitStr, f):
             num = num + 1
             loMark[solIndex] = False
  #       print loMark
-    print 'n', n, 'comp', compCount
+    print 'comp times', compCount
     return num
 
 def flipBit(bit):

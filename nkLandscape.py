@@ -12,6 +12,7 @@ class NKLandscape:
        self.genNeigh()
        self.genFunc()
        self.Kbits = genSeqBits(self.k+1)
+       
     def dispNK(self):
         print self.n, self.k
     """ generate neighborhood """
@@ -54,7 +55,7 @@ class NKLandscape:
             """ sum up the sub-function values """ 
             #print 'i', i, 'index in func', int(interStr,2), 'interStr', interStr
             sum = sum + self.func[i][int(interStr,2)]
-        return sum
+        return sum/self.n
     
             
 def genSeqBits(n):
@@ -68,7 +69,7 @@ def genSeqBits(n):
     return bitStr
 
 # testing purpose
-# model = NKLandscape(5,2)
-# print model.getNeigh()
-# print model.getFunc()
-# print model.compFit('10001001010101010100')
+model = NKLandscape(5,2)
+print model.getNeigh()
+print model.getFunc()
+print model.compFit('10001')
